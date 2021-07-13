@@ -30,7 +30,7 @@ export function makeGrid(x, y) {
             let row = document.createElement('tr');
             let td = document.createElement('td');
 
-            td.innerText = n;
+            td.innerText = ++n;
             row.appendChild(td);
             [...Array(x).keys()].forEach(() => {
                 td = document.createElement('td');
