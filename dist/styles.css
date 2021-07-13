@@ -1,0 +1,21 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+th {
+    padding: 20px;
+}
+
+th, td {
+    text-transform: uppercase;
+}
+
+.data {
+    border: 2px solid;
+}
+
+.cell {
+    height: 3em;
+}
