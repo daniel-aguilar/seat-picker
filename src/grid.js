@@ -1,5 +1,4 @@
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-const tClass = '';
 
 export function makeGrid(x, y) {
     let table = document.createElement('table');
