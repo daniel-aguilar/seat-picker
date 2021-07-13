@@ -18,7 +18,7 @@ export function makeGrid(x, y) {
     }
 
     function addHeaders() {
-        for (let n of Array(x).keys()) {
+        for (const n of Array(x).keys()) {
             let th = document.createElement('th');
             th.innerText = alphabet[n];
             hrow.appendChild(th);
@@ -26,20 +26,28 @@ export function makeGrid(x, y) {
     }
 
     function addRows() {
-        for (let n of Array(y).keys()) {
+        for (const i of Array(y).keys()) {
+            let index = i + 1;
             let row = document.createElement('tr');
             let td = document.createElement('td');
 
-            td.innerText = ++n;
+            td.innerText = index;
             row.appendChild(td);
-            [...Array(x).keys()].forEach(() => {
+            for (const j of Array(x).keys()) {
                 td = document.createElement('td');
                 td.classList.add('data');
                 td.classList.add('cell');
+                td.dataset.value = alphabet[j] + index;
+                td.addEventListener('click', getValue);
                 row.appendChild(td);
-            });
+            };
 
             table.appendChild(row);
         }
     }
+}
+
+function getValue(e) {
+    let td = e.currentTarget;
+    return td.dataset.value;
 }

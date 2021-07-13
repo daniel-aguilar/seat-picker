@@ -18,4 +18,5 @@ th, td {
 
 .cell {
     height: 3em;
+    cursor: pointer;
 }
