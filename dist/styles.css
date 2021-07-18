@@ -12,11 +12,8 @@ th, td {
     text-transform: uppercase;
 }
 
-.data {
-    border: 2px solid;
-}
-
-.cell {
+td.cell {
     height: 3em;
+    border: 2px solid;
     cursor: pointer;
 }

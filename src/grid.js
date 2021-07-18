@@ -54,7 +54,6 @@ export function makeGrid(x, y) {
       row.appendChild(td);
       for (const j of Array(x).keys()) {
         td = document.createElement('td');
-        td.classList.add('data');
         td.classList.add('cell');
         td.dataset.value = '' + i + j;
         td.addEventListener('click',
