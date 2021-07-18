@@ -35,8 +35,7 @@ class Grid {
 
   toggle(td) {
     const value = td.dataset.value;
-    const c = this._decode(value);
-    const cell = this._grid[c.x][c.y];
+    const cell = this._getCell(value);
     const previouslySelected = this._selectedCells.slice();
     let hasChanged = false;
 
@@ -68,6 +67,11 @@ class Grid {
         cell.isAvailable = true;
       })
     );
+  }
+
+  _getCell(value) {
+    const c = this._decode(value);
+    return this._grid[c.x][c.y];
   }
 
   _decode(cellCoordinate) {
