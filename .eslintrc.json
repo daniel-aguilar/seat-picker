@@ -12,6 +12,8 @@
     },
     "rules": {
         "require-jsdoc": "off",
-        "object-curly-spacing": ["error", "always"]
+        "object-curly-spacing": ["error", "always"],
+        "arrow-parens": ["error", "as-needed"],
+        "comma-dangle": ["error", "only-multiline"]
     }
 }

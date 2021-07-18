@@ -46,8 +46,7 @@ class Grid {
         cell.element.classList.remove('selected');
         cell.isSelected = false;
         hasChanged = true;
-      }
-      else if (this.canSelectMoreCells) {
+      } else if (this.canSelectMoreCells) {
         this._selectedCells.push(value);
         cell.element.classList.add('selected');
         cell.isSelected = true;
@@ -56,7 +55,7 @@ class Grid {
 
       if (hasChanged) {
         this._subject.next(
-          JSON.stringify([previouslySelected, this._selectedCells])
+            JSON.stringify([previouslySelected, this._selectedCells])
         );
       }
     }
@@ -85,10 +84,10 @@ class Grid {
 }
 
 export function makeGrid() {
-  const x = 5, y = 5;
+  const x = 5;
+  const y = 5;
   const table = document.createElement('table');
   const array = [];
-  const subject = new Subject();
   const grid = new Grid(array, table);
 
   const hrow = document.createElement('tr');
@@ -125,7 +124,7 @@ export function makeGrid() {
         td.classList.add('cell');
         td.dataset.value = '' + i + j;
         td.addEventListener('click',
-            (e) => grid.toggle(e.currentTarget));
+            e => grid.toggle(e.currentTarget));
         rows.push({
           isAvailable: true,
           isSelected: false,
