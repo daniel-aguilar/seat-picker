@@ -18,7 +18,8 @@ class Grid {
   }
 }
 
-export function makeGrid(x, y) {
+export function makeGrid() {
+  const x = 5, y = 5;
   const table = document.createElement('table');
   const array = [];
   const subject = new Subject();

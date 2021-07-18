@@ -1,5 +1,5 @@
 import { makeGrid } from './grid';
 
-const grid = makeGrid(5, 5);
+const grid = makeGrid();
 const content = document.querySelector('.content');
 content.appendChild(grid.element);
