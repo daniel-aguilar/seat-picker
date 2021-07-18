@@ -1,3 +1,5 @@
+#!/bin/env python
+
 import asyncio
 import json
 
@@ -19,12 +21,13 @@ async def broadcast_state():
             return obj()
         raise TypeError
 
-    state = json.dumps(STATE, default=set_default)
-    tasks = []
-    for ws in CLIENTS:
-        task = asyncio.create_task(ws.send(state))
-        tasks.append(task)
-    await asyncio.wait(tasks)
+    if len(CLIENTS) > 0:
+        state = json.dumps(STATE, default=set_default)
+        tasks = []
+        for ws in CLIENTS:
+            task = asyncio.create_task(ws.send(state))
+            tasks.append(task)
+            await asyncio.wait(tasks)
 
 
 async def register(client):
