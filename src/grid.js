@@ -1,7 +1,31 @@
+import { Subject } from 'rxjs';
+
 const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+class Grid {
+    #grid;
+    #table;
+    #subject;
+
+    get element() {
+        return this.#table;
+    }
+
+    get selectedCells() {
+        return this.#subject.asObservable();
+    }
+
+    constructor(grid, table, subject) {
+        this.#grid = grid;
+        this.#table = table;
+        this.#subject = subject;
+    }
+}
 
 export function makeGrid(x, y) {
     let table = document.createElement('table');
+    const array = [];
+    const subject = new Subject();
 
     let hrow = document.createElement('tr');
     addHiddenCorner();
@@ -9,7 +33,7 @@ export function makeGrid(x, y) {
     table.appendChild(hrow);
     addRows();
 
-    return table;
+    return new Grid(array, table, subject);
 
     function addHiddenCorner() {
         let th = document.createElement('th');
@@ -26,27 +50,25 @@ export function makeGrid(x, y) {
 
     function addRows() {
         for (const i of Array(y).keys()) {
-            let index = i + 1;
             let row = document.createElement('tr');
             let td = document.createElement('td');
+            let rows = [];
 
-            td.innerText = index;
+            td.innerText = i + 1;
             row.appendChild(td);
             for (const j of Array(x).keys()) {
                 td = document.createElement('td');
                 td.classList.add('data');
                 td.classList.add('cell');
-                td.dataset.value = alphabet[j] + index;
-                td.addEventListener('click', getValue);
+                td.dataset.value = '' + i + j;
+                td.addEventListener('click',
+                        (e) => subject.next(e.currentTarget))
+                rows.push(td);
                 row.appendChild(td);
             };
 
+            array.push(rows);
             table.appendChild(row);
         }
     }
-}
-
-function getValue(e) {
-    let td = e.currentTarget;
-    return td.dataset.value;
 }
