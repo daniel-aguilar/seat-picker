@@ -1,4 +1,8 @@
-.content {
+.player-count {
+    text-align: center;
+}
+
+.grid {
     display: flex;
     flex-direction: column;
     align-items: center;
