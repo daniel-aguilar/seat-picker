@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 
 export class Client {
-  get messages() {
+  get updates() {
     return this._subject.asObservable();
   }
 
