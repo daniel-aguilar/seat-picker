@@ -17,3 +17,12 @@ td.cell {
     border: 2px solid;
     cursor: pointer;
 }
+
+td.taken {
+    cursor: not-allowed;
+    background-color: red;
+}
+
+td.selected {
+    background-color: green;
+}
