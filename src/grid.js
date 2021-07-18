@@ -12,6 +12,10 @@ class Grid {
     return this._subject.asObservable();
   }
 
+  get canSelectMoreCells() {
+    return this._selectedCells.length < 2;
+  }
+
   constructor(grid, table) {
     this._grid = grid;
     this._table = table;
@@ -34,20 +38,27 @@ class Grid {
     const c = this._decode(value);
     const cell = this._grid[c.x][c.y];
     const previouslySelected = this._selectedCells.slice();
+    let hasChanged = false;
 
     if (cell.isAvailable) {
       if (cell.isSelected) {
         pull(this._selectedCells, value);
+        cell.element.classList.remove('selected');
+        cell.isSelected = false;
+        hasChanged = true;
       }
-      else {
+      else if (this.canSelectMoreCells) {
         this._selectedCells.push(value);
+        cell.element.classList.add('selected');
+        cell.isSelected = true;
+        hasChanged = true;
       }
 
-      cell.isSelected = !cell.isSelected;
-      cell.element.classList.toggle('selected');
-      this._subject.next(
-        JSON.stringify([previouslySelected, this._selectedCells])
-      );
+      if (hasChanged) {
+        this._subject.next(
+          JSON.stringify([previouslySelected, this._selectedCells])
+        );
+      }
     }
   }
 
