@@ -25,11 +25,15 @@ class Grid {
   }
 
   block(cellList) {
-    const cellCoordinates = cellList.map(c => this._decode(c));
-    cellCoordinates.forEach(c => {
-      const cell = this._grid[c.x][c.y];
-      cell.element.classList.add('taken');
-      cell.isAvailable = false;
+    this._clearAll();
+    this._selectCurrentCells();
+    cellList.forEach(value => {
+      const cell = this._getCell(value);
+
+      if (!this._selectedCells.includes(value)) {
+        cell.element.classList.add('taken');
+        cell.isAvailable = false;
+      }
     });
   }
 
@@ -47,8 +51,7 @@ class Grid {
         hasChanged = true;
       } else if (this.canSelectMoreCells) {
         this._selectedCells.push(value);
-        cell.element.classList.add('selected');
-        cell.isSelected = true;
+        this._select(cell);
         hasChanged = true;
       }
 
@@ -63,10 +66,24 @@ class Grid {
   _clearAll() {
     this._grid.forEach(row =>
       row.forEach(cell => {
-        cell.element.classList.remove('taken');
+        cell.element.classList.remove('taken', 'selected');
         cell.isAvailable = true;
+        cell.isSelected = false;
       })
     );
+  }
+
+  _selectCurrentCells() {
+    this._selectedCells.forEach(value => {
+      const c = this._decode(value);
+      const cell = this._grid[c.x][c.y];
+      this._select(cell);
+    });
+  }
+
+  _select(cell) {
+    cell.element.classList.add('selected');
+    cell.isSelected = true;
   }
 
   _getCell(value) {

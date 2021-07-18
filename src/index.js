@@ -9,4 +9,9 @@ content.appendChild(grid.element);
 const client = new Client();
 client.updates.subscribe(msg => {
   playerCounter.innerHTML = msg.players;
+  grid.block(msg.seats);
 });
+
+grid.selectedCells.subscribe(cells =>
+  client.ws.send(cells)
+);
